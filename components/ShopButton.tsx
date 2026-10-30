@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'motion/react';
 import { Icon } from './Icons';
 
 export function ShopButton({
@@ -35,18 +38,27 @@ export function DiscountBadge({ className = '' }: { className?: string }) {
       className={`relative inline-flex items-center justify-center select-none ${className}`}
       aria-label="25 percent off promotional offer"
     >
-      <svg
+      {/* Infinite Looping Rotating Starburst */}
+      <motion.svg
         viewBox="0 0 172 170"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-full drop-shadow-sm transition-transform duration-300 hover:rotate-6"
+        animate={{ rotate: 360 }}
+        transition={{
+          repeat: Infinity,
+          duration: 10,
+          ease: 'linear',
+        }}
+        className="h-full w-full drop-shadow-sm origin-center"
       >
         <polygon
           points="86,0 103,22 129,11 132,39 160,43 149,68 171,85 149,102 160,128 132,131 129,159 103,148 86,170 69,148 44,159 40,131 12,128 23,102 1,85 23,68 12,42 40,39 43,11 69,22"
           fill="#fecb3f"
         />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-ink">
+      </motion.svg>
+
+      {/* Upright Stationary Promotional Text */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-ink pointer-events-none">
         <span className="font-display text-[40px] md:text-[44px] font-bold leading-[0.88] tracking-tight">
           25%
         </span>

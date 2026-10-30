@@ -63,11 +63,11 @@ export default function HeroStoryTrack() {
   );
 
   // Vertical position across all 5 sections:
-  // Hero (+20vh) -> Story (0vh) -> Benefits (-24vh) -> Vault (+2vh) -> Moments (-3vh)
+  // Hero (+20vh) -> Story (0vh) -> Benefits (-26vh) -> Vault (+2vh) -> Moments (-3vh)
   const y = useTransform(
     scrollYProgress,
     [0, 0.05, 0.22, 0.28, 0.47, 0.53, 0.72, 0.78, 0.95, 1.0],
-    ['20vh', '20vh', '0vh', '0vh', '-24vh', '-24vh', '2vh', '2vh', '-3vh', '-3vh']
+    ['20vh', '20vh', '0vh', '0vh', '-26vh', '-26vh', '2vh', '2vh', '-3vh', '-3vh']
   );
 
   // Horizontal position across all 5 sections:
