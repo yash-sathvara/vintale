@@ -89,27 +89,6 @@ export default function MomentsPromo() {
           </div>
         </motion.div>
       </div>
-
-      {/* Large Blossom Rosé Bottle on right side — tilted ~-13deg, occupying right ~55% of the frame */}
-      <motion.div
-        initial={{ opacity: 0, x: 80, y: -20 }}
-        whileInView={{ opacity: 1, x: 0, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        className="absolute pointer-events-none select-none z-0 right-[-60px] sm:right-[-20px] md:right-0 lg:right-[-40px] top-[-60px] sm:top-[-80px] lg:top-[-100px]"
-        aria-hidden="true"
-      >
-        <div className="-rotate-[13deg] origin-top-right">
-          <Image
-            src="/bottles/rose-large.svg"
-            alt="Blossom Rosé wine ready to pour"
-            width={922}
-            height={1004}
-            priority
-            className="w-[520px] sm:w-[680px] md:w-[820px] lg:w-[960px] h-auto"
-          />
-        </div>
-      </motion.div>
     </section>
   );
 }

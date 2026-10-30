@@ -78,7 +78,9 @@ export default function WineVault() {
                       width={540}
                       height={588}
                       priority
-                      className="h-full w-auto max-w-none object-contain"
+                      className={`h-full w-auto max-w-none object-contain ${
+                        product.id === 'blossom-rose' ? 'invisible' : ''
+                      }`}
                     />
                   </div>
                 </div>
