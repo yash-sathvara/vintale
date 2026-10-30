@@ -19,11 +19,11 @@ export default function HeritageHero() {
         initial={{ opacity: 0, y: -24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute left-0 right-0 top-[130px] z-10 w-full text-center pointer-events-none select-none px-4"
+        className="absolute inset-x-0 top-[130px] z-10 w-full text-center pointer-events-none select-none px-4"
       >
         <h1
           id="heritage-title"
-          className="font-display mx-auto text-center font-semibold text-[88px] sm:text-[130px] md:text-[160px] lg:text-[196px] tracking-[0.01em] leading-[0.82] text-ink"
+          className="font-display max-w-[997px] mx-auto text-center font-semibold text-[88px] sm:text-[130px] md:text-[160px] lg:text-[196px] tracking-[0.01em] leading-[0.82] text-ink"
         >
           Taste<br />Heritage
         </h1>
@@ -34,7 +34,7 @@ export default function HeritageHero() {
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        className="absolute left-1/2 -translate-x-1/2 top-[480px] pointer-events-none -z-10 flex items-center justify-center"
+        className="absolute inset-x-0 mx-auto top-[480px] w-[900px] h-[900px] pointer-events-none -z-10 flex items-center justify-center"
         aria-hidden="true"
       >
         {/* Outer Thin Ring (Diameter 900px, 1.5px pink border) */}

@@ -10,42 +10,41 @@ import WineVault from './WineVault';
 import MomentsPromo from './MomentsPromo';
 
 /**
- * HeroStoryTrack (Unified 5-Section Bottle Scroll Animation)
+ * HeroStoryTrack (Unified 5-Section Continuous Bottle Experience)
  *
- * Implements the complete continuous bottle animation from the reference video
- * across ALL five sections:
- *
+ * Trajectory:
  * 1. Hero (0.00 - 0.05):
- *    - Tilted at -13°, resting bottom-center inside the concentric pink circle.
+ *    - Scale: 1.65 (close-up zoom matching Desktop - 2 reference).
+ *    - Rotation: -13° tilt.
+ *    - Position: x = -8vw, y = +28vh (cap at ~y=320px, shoulder & body emerging through circle).
  *
  * 2. Hero -> Story (0.05 - 0.22):
- *    - Smoothly rotates from -13° to 0° (upright) and moves to the exact vertical
- *      and horizontal center between "Timeless Craft" and "About Vintale".
+ *    - Scales down from 1.65 to 1.0.
+ *    - Rotates from -13° to 0° (upright).
+ *    - Moves to center (x: -8vw -> 0vw, y: 28vh -> 0vh).
  *
  * 3. Story Rest (0.22 - 0.28):
- *    - Upright at 0°, center position.
+ *    - Upright at 0°, center between "Timeless Craft" and "About Vintale".
  *
  * 4. Story -> Benefits (0.28 - 0.47):
- *    - Glides upward to y = -24vh so its base docks at the apex of the pink dome,
- *      with the 5 circular trust badges fanning out below.
+ *    - Glides upward to y = -24vh so base docks cleanly at the pink dome apex.
  *
  * 5. Benefits Rest (0.47 - 0.53):
- *    - Upright at 0°, resting atop the dome.
+ *    - Upright at 0°, docked at dome apex with trust badges around it.
  *
  * 6. Benefits -> Wine Vault (0.53 - 0.72):
- *    - Drops down from y = -24vh to y = +2vh and scales down from 1.0 to 0.62,
- *      landing directly into slot #3 (the center bottle) of The Vintale Vault!
+ *    - Drops down to y = +2vh and scales down from 1.0 to 0.62 (~514px bottle height),
+ *      landing directly into slot #3 of the 5-bottle vault lineup.
  *
  * 7. Wine Vault Rest (0.72 - 0.78):
- *    - Aligned with the other 4 bottles in the vault showcase at scale 0.62.
+ *    - Perfectly aligned in slot #3 beside Golden Chard, Scarlet Merlot, Verdant Grove, and Purple Malbec.
  *
  * 8. Wine Vault -> Moments Promo (0.78 - 0.95):
- *    - As the 4 other bottles scroll off-screen, the Blossom Rosé bottle detaches,
- *      rotates to -20°, glides to the right side (x = +24vw), and scales up
- *      dramatically (scale: 0.62 -> 1.30) to fill the right half of the hero layout!
+ *    - As the 4 other bottles scroll away, Blossom Rosé detaches, tilts to -20°,
+ *      shifts right to x = +24vw, and expands (scale: 0.62 -> 1.30).
  *
  * 9. Moments Promo Rest (0.95 - 1.00):
- *    - Beautifully positioned on the right of "Let the Moments Pour." matching Desktop - 6.
+ *    - Grand hero feature on the right side of "Let the Moments Pour."
  */
 export default function HeroStoryTrack() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -55,15 +54,15 @@ export default function HeroStoryTrack() {
     offset: ['start start', 'end end'],
   });
 
-  // Rotation:
-  // -13° (Hero) -> 0° (Story, Benefits, Vault) -> -20° (Moments)
+  // Rotation across all 5 sections:
+  // -13° (Hero) -> 0° upright (Story, Benefits, Vault) -> -20° (Moments)
   const rotate = useTransform(
     scrollYProgress,
     [0, 0.05, 0.22, 0.28, 0.47, 0.53, 0.72, 0.78, 0.95, 1.0],
     [-13, -13, 0, 0, 0, 0, 0, 0, -20, -20]
   );
 
-  // Vertical position:
+  // Vertical position across all 5 sections:
   // Hero (+20vh) -> Story (0vh) -> Benefits (-24vh) -> Vault (+2vh) -> Moments (-3vh)
   const y = useTransform(
     scrollYProgress,
@@ -71,7 +70,7 @@ export default function HeroStoryTrack() {
     ['20vh', '20vh', '0vh', '0vh', '-24vh', '-24vh', '2vh', '2vh', '-3vh', '-3vh']
   );
 
-  // Horizontal position:
+  // Horizontal position across all 5 sections:
   // Center (0vw) for sections 1-4 -> Shifts right (+24vw) for Section 5 (Moments)
   const x = useTransform(
     scrollYProgress,
@@ -79,7 +78,7 @@ export default function HeroStoryTrack() {
     ['0vw', '0vw', '0vw', '0vw', '0vw', '0vw', '0vw', '0vw', '24vw', '24vw']
   );
 
-  // Scale:
+  // Scale across all 5 sections:
   // 1.05 (Hero) -> 1.0 (Story, Benefits) -> 0.62 (Vault lineup) -> 1.30 (Moments grand feature)
   const scale = useTransform(
     scrollYProgress,
