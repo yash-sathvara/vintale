@@ -119,7 +119,7 @@ export default function HeroStoryTrack() {
       <div className="-mt-[100vh]">
         <HeritageHero />
         <StorySection />
-        <BenefitsSection />
+        <BenefitsSection scrollProgress={scrollYProgress} />
         <WineVault />
         <MomentsPromo />
       </div>

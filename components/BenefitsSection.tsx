@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'motion/react';
+import { motion, useScroll, useTransform, useSpring, type MotionValue } from 'motion/react';
 import { Icon, type IconName } from './Icons';
 
 interface BenefitItem {
@@ -49,35 +49,46 @@ const benefits: BenefitItem[] = [
   },
 ];
 
-export default function BenefitsSection() {
+interface BenefitsSectionProps {
+  scrollProgress?: MotionValue<number>;
+}
+
+export default function BenefitsSection({ scrollProgress }: BenefitsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Track scroll progress as Benefits section scrolls into view
-  const { scrollYProgress } = useScroll({
+  // Local scroll fallback when scrollProgress is not passed from the track
+  const { scrollYProgress: localScroll } = useScroll({
     target: sectionRef,
-    offset: ['start end', 'center center'],
+    offset: ['start 80%', 'center center'],
   });
 
-  // Smooth springs for fluid scroll animation
-  const springConfig = { stiffness: 120, damping: 24, mass: 0.5 };
+  const activeProgress = scrollProgress || localScroll;
 
-  // Left 2 items move outward to the left side as bottle approaches
-  const rawLeft1 = useTransform(scrollYProgress, [0.25, 0.85], [45, -55]);
-  const rawLeft2 = useTransform(scrollYProgress, [0.25, 0.85], [20, -28]);
-  const leftItem1X = useSpring(rawLeft1, springConfig);
-  const leftItem2X = useSpring(rawLeft2, springConfig);
+  // Fluid spring configuration
+  const springConfig = { stiffness: 120, damping: 22, mass: 0.5 };
 
-  // Center item cradles directly under the bottle
-  const rawCenter = useTransform(scrollYProgress, [0.25, 0.85], [0, 0]);
-  const centerX = useSpring(rawCenter, springConfig);
+  // Keyframe range:
+  // When track scrollProgress is passed:
+  // Bottle enters Benefits between 0.24 and 0.38, rests until 0.44, and drops to Vault after 0.56.
+  const inputPoints = scrollProgress
+    ? [0.24, 0.38, 0.44, 0.56]
+    : [0.10, 0.75, 0.85, 1.0];
 
-  // Right 2 items move outward to the right side as bottle approaches
-  const rawRight1 = useTransform(scrollYProgress, [0.25, 0.85], [-20, 28]);
-  const rawRight2 = useTransform(scrollYProgress, [0.25, 0.85], [-45, 55]);
+  // Left 2 items (Quick Delivery & Easy Returns) remain stationary (no leftward movement)
+  // Only the right side moves:
+  // Quality Assured (Item 3): was hidden directly behind the bottle.
+  // Moves +155px to the right side so it emerges completely from behind the bottle!
+  // Secure Payment (Item 4): shifts +105px to the right
+  // Eco Friendly (Item 5): shifts +55px to the right
+  const rawRight1 = useTransform(activeProgress, inputPoints, [0, 250, 250, 0]);
+  const rawRight2 = useTransform(activeProgress, inputPoints, [0, 180, 180, 0]);
+  const rawRight3 = useTransform(activeProgress, inputPoints, [0, 110, 110, 0]);
   const rightItem1X = useSpring(rawRight1, springConfig);
   const rightItem2X = useSpring(rawRight2, springConfig);
+  const rightItem3X = useSpring(rawRight3, springConfig);
 
-  const xTransforms = [leftItem1X, leftItem2X, centerX, rightItem1X, rightItem2X];
+  // Items 1 & 2 do not move (0 offset), only items 3, 4, 5 move to the right side
+  const xTransforms = [0, 0, rightItem1X, rightItem2X, rightItem3X];
 
   return (
     <section
